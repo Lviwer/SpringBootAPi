@@ -1,6 +1,7 @@
 package pl.lviwer.restapi.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,9 +20,16 @@ public class PostController {
 
 
     @GetMapping("/posts")
-    public List<PostDto> getPosts(@RequestParam (required = false) int page) {
+    public List<PostDto> getPosts(@RequestParam(required = false) int page, Sort.Direction sort) {
         int pageNumber = page > 0 ? page : 0;
-        return PostDtoMapper.mapToPostDtos(postService.getPosts(page));
+        return PostDtoMapper.mapToPostDtos(postService.getPosts(pageNumber, sort));
+    }
+
+
+    @GetMapping("/posts/comments")
+    public List<Post> getPostsWithComments(@RequestParam(required = false) int page, Sort.Direction sort) {
+        int pageNumber = page > 0 ? page : 0;
+        return postService.getPostsWithComments(page, sort);
     }
 
 
