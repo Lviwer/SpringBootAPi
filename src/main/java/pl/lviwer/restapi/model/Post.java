@@ -20,6 +20,7 @@ public class Post {
     private LocalDateTime created;
 
     @OneToMany
-    @JoinColumn(name = "postId") //<- name from Comments  /(name = "post_id") <-default name from database _
+    @JoinColumn(name = "postId", updatable = false, insertable = false)
+    //<- name from Comments  /(name = "post_id") <-default name from database _
     private List<Comment> comment;
 }

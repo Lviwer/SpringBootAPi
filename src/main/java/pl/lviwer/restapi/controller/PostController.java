@@ -45,9 +45,10 @@ public class PostController {
     }
 
 
-
-
-
+    @PutMapping("/posts")
+    public Post editPost(@RequestBody Post post){
+        return postService.editPost(post);
+    }
 
 
 

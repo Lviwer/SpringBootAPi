@@ -9,6 +9,7 @@ import pl.lviwer.restapi.model.Post;
 import pl.lviwer.restapi.repository.CommentRepository;
 import pl.lviwer.restapi.repository.PostRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,5 +55,14 @@ public class PostService {
 
     public Post addPost(Post post) {
         return postRepository.save(post);
+    }
+
+    @Transactional //open transaction before method & close after
+    public Post editPost(Post post) {
+        Post postEdited = postRepository.findById(post.getId()).orElseThrow();
+        postEdited.setTitle(post.getTitle());
+        postEdited.setContent(post.getContent());
+        //return postRepository.save(post); <- 2 transaction//Hibernate automatically updates entity after changing some data
+        return postEdited;
     }
 }
