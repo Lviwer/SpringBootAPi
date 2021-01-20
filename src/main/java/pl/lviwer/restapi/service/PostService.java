@@ -65,4 +65,8 @@ public class PostService {
         //return postRepository.save(post); <- 2 transaction//Hibernate automatically updates entity after changing some data
         return postEdited;
     }
+
+    public void deletePost(long id) {
+        postRepository.deleteById(id);
+    }
 }
