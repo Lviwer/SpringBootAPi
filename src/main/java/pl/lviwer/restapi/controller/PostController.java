@@ -2,6 +2,8 @@ package pl.lviwer.restapi.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.bind.annotation.*;
 import pl.lviwer.restapi.controller.dto.PostDto;
 import pl.lviwer.restapi.model.Post;
@@ -17,7 +19,8 @@ public class PostController {
 
 
     @GetMapping("/posts")
-    public List<PostDto> getPosts(@RequestParam(required = false) Integer page, Sort.Direction sort) {
+    public List<PostDto> getPosts(@RequestParam(required = false) Integer page, Sort.Direction sort,
+                                  @AuthenticationPrincipal UsernamePasswordAuthenticationFilter user) {
         int pageNumber = page != null && page > 0 ? page : 0;
         Sort.Direction sortDirection = sort != null ? sort : Sort.Direction.ASC;
         return PostDtoMapper.mapToPostDtos(postService.getPosts(pageNumber, sortDirection));
