@@ -41,12 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication()
-                .withDefaultSchema() //create default schema for database with users
-                .dataSource(dataSource)
-                .withUser("test")
-                .password("{bcrypt}" + new BCryptPasswordEncoder().encode("test"))
-                .roles("USER");
+        auth.jdbcAuthentication().dataSource(dataSource);
     }
 
 

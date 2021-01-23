@@ -1,5 +1,5 @@
 --liquibase formatted sql
---changeset mszkudlarek:1
+--changeset mszkudlarek:2
 
 CREATE TABLE COMMENT (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
